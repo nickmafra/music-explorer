@@ -12,7 +12,9 @@ class CircleMaker {
 	distanceFactor = 0; // zero or one
 	spacing = 2;
 	angleOffset = 6 * twoPI / 12;
-	hueOffset = 110;
+	hueOffset = 0;
+	saturation = 90;
+	lightning = 65;
 	fontSize = 16;
 	superFontSize = 12;
 	ghostNotes = true;
@@ -21,15 +23,15 @@ class CircleMaker {
 	
 	element = null;
 	callback = null;
-	notes = [];
+	noteMap = {};
 	
-	constructor(notes, callback) {
+	constructor(callback, notes) {
 		this.createElement();
 		if (callback) {
 			this.callback = callback;
 		}
 		if (notes) {
-			this.appendCells(notes);
+			this.setCells(notes);
 		}
 	}
 	
@@ -43,10 +45,14 @@ class CircleMaker {
 	  return element;
 	}
 
-	appendCells(notes) {
+	setCells(notes) {
+		this.element.innerHTML = '';
 		if (notes.length > 12) {
 			this.distanceFactor = 1;
 			this.ghostNotes = false;
+		} else {
+			this.distanceFactor = 0;
+			this.ghostNotes = true;
 		}
 		if (notes.length >= 24) {
 			this.temperament = wellTemperament;
@@ -62,9 +68,9 @@ class CircleMaker {
 	}
 	
 	appendNote(note) {
-			let cell = this.createCell(note)
-			this.element.appendChild(cell);
-			this.notes.push(note);
+		let cell = this.createCell(note)
+		this.element.appendChild(cell);
+		this.noteMap[note.text] = cell;
 	}
 
 	createCell(note) {
@@ -106,7 +112,7 @@ class CircleMaker {
 	  
 	  if (Number.isInteger(note.hueIndex)) {
 			let hue = this.hueOffset + 360 * note.hueIndex * ratio;
-			path.setAttribute("fill", `hsl(${hue}, 100%, 65%)`);
+			path.setAttribute("fill", `hsl(${hue}, ${this.saturation}%, ${this.lightning}%)`);
 			cell.classList.add("selectable");
 	  } else {
 			path.setAttribute("fill", 'gray');
@@ -117,7 +123,7 @@ class CircleMaker {
   	this.appendText(cell, x, y, note.natText, note.accText);
 	  
 	  if (this.callback) {
-	  	cell.onclick = () => this.callback(note);
+	  	cell.onclick = () => this.callback(note, cell);
 	  }
 	  
 	  return cell;
@@ -149,6 +155,19 @@ class CircleMaker {
 	  tspan.textContent = content;
 	  text.appendChild(tspan);
 	  return tspan;
+	}
+	
+	selectNote(noteName) {
+		let	cell = this.noteMap[noteName];
+		if (cell) {
+			cell.classList.add('selected');
+		}
+	}
+	
+	clearSelections() {
+		this.element.querySelectorAll(".selected").forEach(cell => {
+			cell.classList.remove('selected');
+		});
 	}
 }
 

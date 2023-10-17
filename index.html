@@ -7,8 +7,24 @@
 </head>
 <body>
 
-<div id="container">
+<div>
+	<label>Grupo de notas</label>
+	<select id="noteGroup" onchange="onSelectNoteGroup()">
+		<option value="12notes">12 notas</option>
+		<option value="17notes" selected>Ciclo das quintas básico</option>
+		<option value="35notes">Ciclo das quintas completo</option>
+	</select>
 </div>
+	<div id="fifthCircle"></div>
+<div>
+	<label>Escala</label>
+	<select id="scale" onchange="onSelectScale()">
+		<option value="diatonic" selected>Diatônica</option>
+		<option value="pentatonic">Pentatônica</option>
+		<option value="chromatic">Cromática</option>
+	</select>
+</div>
+	<div id="scaleCircle"></div>
 
 
 <script src="notes.js" charset="utf-8"></script>

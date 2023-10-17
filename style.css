@@ -1,3 +1,6 @@
+body div {
+	float: left;
+}
 svg {
   border: 1px solid black;
 }
@@ -7,4 +10,7 @@ svg {
 }
 .cell text {
 	transform: translate(0, 2px)
+}
+.cell.selected {
+  filter: drop-shadow( 0 0 10px red);
 }
