@@ -60,7 +60,7 @@ class CircleMaker {
 	  notes.forEach(note => this.appendNote(note));
 	  if (this.ghostNotes) {
 	  	for (var i = 0; i < 12; i++) {
-	  		if (!notes.find(note => note.circleIndex % 12 == i)) {
+	  		if (!notes.find(note => (note.circleIndex + 120) % 12 == i)) {
 	  			this.appendNote({circleIndex: i});
 	  		}
 	  	}

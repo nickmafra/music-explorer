@@ -55,13 +55,12 @@ function findScaleByName(name) {
 	return scale;
 }
 
-function listFifthNotes(firstNoteName, lastNoteName) {
+function listFifthInterval(firstNoteName, lastNoteName) {
   
   let firstFifthIndex = findNoteByName(firstNoteName).fifthIndex;
   let lastFifthIndex = findNoteByName(lastNoteName).fifthIndex;
   
-  return allNotes.filter(note => note.fifthIndex >= firstFifthIndex && note.fifthIndex <= lastFifthIndex)
-      .map(note => ({ ...note, circleIndex: note.fifthIndex}));
+  return allNotes.filter(note => note.fifthIndex >= firstFifthIndex && note.fifthIndex <= lastFifthIndex);
 }
 
 function listScaleNotes(scaleName, baseNoteName) {

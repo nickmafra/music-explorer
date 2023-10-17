@@ -1,20 +1,21 @@
 let noteGroups = {
-	"12notes": listFifthScaleNotes('E♭', 12),
-	"17notes": listFifthNotes('G♭', 'A♯'),
-	"35notes": listFifthNotes('F𝄫', 'B𝄪'),
+	"12notes": circleWithFifthIndex(listFifthInterval('G♭', 'B')),
+	"17notes": circleWithFifthIndex(listFifthInterval('G♭', 'A♯')),
+	"35notes": circleWithFifthIndex(listFifthInterval('F𝄫', 'B𝄪')),
 };
 
 let fifthCircle = null;
 let scaleCircle = null;
-let selectedKey = "C";
 let noteGroup = null;
+let selectedKey = "C";
 let selectedScale = null;
+let selectedMode = "C";
 
 function start() {
-	fifthCircle = new CircleMaker(onSelectNote);
+	fifthCircle = new CircleMaker(onSelectKey);
 	document.querySelector("#fifthCircle").appendChild(fifthCircle.element);
 	
-	scaleCircle = new CircleMaker(onSelectScale);
+	scaleCircle = new CircleMaker(onSelectMode);
 	document.querySelector("#scaleCircle").appendChild(scaleCircle.element);
 	
 	onSelectNoteGroup();
@@ -32,7 +33,7 @@ function refreshFifthCircle() {
 	fifthCircle.selectNote(selectedKey);
 }
 
-function onSelectNote(note) {
+function onSelectKey(note) {
 	selectedKey = note.text;
 	fifthCircle.clearSelections();
 	fifthCircle.selectNote(selectedKey);
@@ -45,9 +46,16 @@ function onSelectScale() {
 }
 
 function refreshScale() {
+	selectedMode = selectedKey;
 	let notes = circleWithHueIndex(listScaleNotes(selectedScale, selectedKey));
 	scaleCircle.setCells(notes);
+	scaleCircle.selectNote(selectedMode);
+}
+
+function onSelectMode(note) {
+	selectedMode = note.text;
 	scaleCircle.clearSelections();
+	scaleCircle.selectNote(selectedMode);
 }
 
 start();

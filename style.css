@@ -1,8 +1,16 @@
-body div {
-	float: left;
+body {
+	display: flex;
+	flex-wrap: wrap;
 }
-svg {
-  border: 1px solid black;
+body > div {
+	margin: 10px;
+}
+.note-circle {
+	border: 1px solid black;
+	display: flex;
+	flex-direction: column;
+	margin-top: 5px;
+	padding: 5px;
 }
 .cell.selectable:hover {
   filter: drop-shadow( 0 0 5px black);
