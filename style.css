@@ -1,0 +1,10 @@
+svg {
+  border: 1px solid black;
+}
+.cell.selectable:hover {
+  filter: drop-shadow( 0 0 5px black);
+  cursor: pointer;
+}
+.cell text {
+	transform: translate(0, 2px)
+}
