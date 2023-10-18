@@ -16,8 +16,11 @@ const accidentals = [
 ];
 const scales = [
 	{notes: [0, 1, 2, 3, 4], name: "pentatonic" },
-	{notes: [-1, 0, 1, 2, 3, 4, 5], name: "diatonic" },
-	{notes: [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8], name: "chromatic" },
+	{notes: [-1, 0, 1, 2, 3, 4, 5], name: "natural major" },
+	{notes: [-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5], name: "chromatic" },
+	{notes: [-4, -3, -2, -1, 0, 1, 2], name: "natural minor" },
+	{notes: [-4, -3, -1, 0, 1, 2, 5], name: "harmonic minor" },
+	{notes: [-3, -1, 0, 1, 2, 3, 5], name: "melodic minor" },
 ];
 
 function mountNote(nat, acc) {

@@ -9,7 +9,7 @@ body > div {
 	border: 1px solid black;
 	display: flex;
 	flex-direction: column;
-	margin-top: 5px;
+	margin-bottom: 5px;
 	padding: 5px;
 }
 .cell.selectable:hover {

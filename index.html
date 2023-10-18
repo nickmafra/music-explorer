@@ -8,22 +8,25 @@
 <body>
 
 <div>
+	<div id="fifthCircle" class="note-circle">Selecione a nota da tonalidade</div>
 	<label>Grupo de notas</label>
 	<select id="noteGroup" onchange="onSelectNoteGroup()">
-		<option value="12notes" selected>12 notas</option>
-		<option value="17notes">Ciclo das quintas básico</option>
-		<option value="35notes">Ciclo das quintas completo</option>
+		<option value="12notes">12 notas</option>
+		<option value="17notes" selected>Ciclo das Quintas Básico</option>
+		<option value="35notes">Ciclo das Quintas Completo</option>
 	</select>
-	<div id="fifthCircle" class="note-circle">Escolha a nota da tonalidade</div>
 </div>
 <div>
+	<div id="scaleCircle" class="note-circle">Selecione a nota base do modo</div>
 	<label>Escala</label>
 	<select id="scale" onchange="onSelectScale()">
-		<option value="diatonic" selected>Diatônica</option>
-		<option value="pentatonic">Pentatônica</option>
 		<option value="chromatic">Cromática</option>
+		<option value="pentatonic">Pentatônica</option>
+		<option value="natural major" selected>Maior Natural</option>
+		<option value="natural minor">Menor Natural</option>
+		<option value="harmonic minor">Menor Harmônica</option>
+		<option value="melodic minor">Menor Melódica</option>
 	</select>
-	<div id="scaleCircle" class="note-circle">Escola a nota base do modo</div>
 </div>
 
 
