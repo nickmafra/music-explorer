@@ -10,6 +10,7 @@ let noteGroup = null;
 let selectedKey = "C";
 let selectedScale = null;
 let selectedMode = "C";
+let scaleNotes = [];
 
 function start() {
 	fifthCircle = new CircleMaker(onSelectKey);
@@ -31,6 +32,7 @@ function refreshFifthCircle() {
 	let notes = noteGroups[noteGroup];
 	fifthCircle.setCells(notes);
 	fifthCircle.selectNote(selectedKey);
+	fifthCircle.selectNoteGroup(scaleNotes);
 }
 
 function onSelectKey(note) {
@@ -47,9 +49,10 @@ function onSelectScale() {
 
 function refreshScale() {
 	selectedMode = selectedKey;
-	let notes = circleWithHueIndex(listScaleNotes(selectedScale, selectedKey));
-	scaleCircle.setCells(notes);
+	scaleNotes = circleWithHueIndex(listScaleNotes(selectedScale, selectedKey));
+	scaleCircle.setCells(scaleNotes);
 	scaleCircle.selectNote(selectedMode);
+	refreshFifthCircle();
 }
 
 function onSelectMode(note) {

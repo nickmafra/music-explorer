@@ -39,8 +39,6 @@ class CircleMaker {
 	  let element = document.createElementNS(ns, "svg");
 	  element.setAttribute("width", 320);
 	  element.setAttribute("height", 320);
-	  element.setAttribute("stroke", "black");
-	  element.setAttribute("stroke-width", 0.2);
 	  this.element = element;
 	  return element;
 	}
@@ -122,6 +120,8 @@ class CircleMaker {
 	  
   	this.appendText(cell, x, y, note.natText, note.accText);
 	  
+	  cell.onmouseover = () => this.bringToFront(cell);
+	  
 	  if (this.callback) {
 	  	cell.onclick = () => this.callback(note, cell);
 	  }
@@ -164,10 +164,27 @@ class CircleMaker {
 		}
 	}
 	
+	selectNoteGroup(notes) {
+		notes.forEach(note => {
+			let	cell = this.noteMap[note.text];
+			if (cell) {
+				cell.classList.add('in-group-selected');
+			}
+		});
+	}
+	
 	clearSelections() {
 		this.element.querySelectorAll(".selected").forEach(cell => {
 			cell.classList.remove('selected');
 		});
+		this.element.querySelectorAll(".in-group-selected").forEach(cell => {
+			cell.classList.remove('in-group-selected');
+		});
+	}
+	
+	bringToFront(cell) {
+		cell.remove();
+		this.element.appendChild(cell);
 	}
 }
 
