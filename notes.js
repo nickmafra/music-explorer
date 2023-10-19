@@ -28,13 +28,13 @@ function mountNote(nat, acc) {
 		acc = accidentals[2];
 	}
 	return {
+		text: nat.text + acc.text,
 		natIndex: nat.index,
-	  accIndex: acc.index,
-	  natText: nat.text,
-	  accText: acc.text,
-	  text: nat.text + acc.text,
-	  hueIndex: (nat.index * 7 + acc.index) % 12,
-	  fifthIndex: nat.index + 7 * acc.index,
+		accIndex: acc.index,
+		natText: nat.text,
+		accText: acc.text,
+		hueIndex: (nat.index * 7 + acc.index + 120) % 12,
+		fifthIndex: nat.index + 7 * acc.index,
 	};
 }
 

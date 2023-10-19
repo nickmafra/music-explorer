@@ -24,6 +24,7 @@ class CircleMaker {
 	element = null;
 	callback = null;
 	noteMap = {};
+	items = [];
 	
 	constructor(callback, notes) {
 		this.createElement();
@@ -44,6 +45,7 @@ class CircleMaker {
 	}
 
 	setCells(notes) {
+		this.items = [];
 		this.element.innerHTML = '';
 		if (notes.length > 12) {
 			this.distanceFactor = 1;
@@ -69,6 +71,10 @@ class CircleMaker {
 		let cell = this.createCell(note)
 		this.element.appendChild(cell);
 		this.noteMap[note.text] = cell;
+		this.items.push({
+			"note": note,
+			"cell": cell,
+		});
 	}
 
 	createCell(note) {
@@ -158,7 +164,7 @@ class CircleMaker {
 	}
 	
 	selectNote(noteName) {
-		let	cell = this.noteMap[noteName];
+		let	cell = this.#findCell({text: noteName});
 		if (cell) {
 			cell.classList.add('selected');
 		}
@@ -166,11 +172,22 @@ class CircleMaker {
 	
 	selectNoteGroup(notes) {
 		notes.forEach(note => {
-			let	cell = this.noteMap[note.text];
+			let	cell = this.#findCell(note);
 			if (cell) {
 				cell.classList.add('in-group-selected');
 			}
 		});
+	}
+
+	#findCell(note) {
+		let	item = this.items.find(value => value.note.text == note.text);
+		if (!item && note.hueIndex != undefined) {
+			item = this.items.find(value => value.note.hueIndex == note.hueIndex);
+		}
+		if (!item) {
+			console.error("Not found note: " + note.text);
+		}
+		return item ? item.cell : null;
 	}
 	
 	clearSelections() {
