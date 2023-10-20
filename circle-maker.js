@@ -33,6 +33,7 @@ class CircleMaker {
 	
 	createElement() {
 	  let element = document.createElementNS(ns, "svg");
+	  element.setAttribute("viewBox", "0 0 320 320");
 	  this.element = element;
 	  return element;
 	}
