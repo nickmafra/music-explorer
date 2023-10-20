@@ -12,11 +12,6 @@ class CircleMaker {
 	distanceFactor = 0; // zero or one
 	spacing = 2;
 	angleOffset = 6 * twoPI / 12;
-	hueOffset = 0;
-	saturation = 90;
-	lightning = 65;
-	fontSize = 16;
-	superFontSize = 12;
 	ghostNotes = true;
 	
 	temperament = equalTemperament;
@@ -38,8 +33,6 @@ class CircleMaker {
 	
 	createElement() {
 	  let element = document.createElementNS(ns, "svg");
-	  element.setAttribute("width", 320);
-	  element.setAttribute("height", 320);
 	  this.element = element;
 	  return element;
 	}
@@ -119,7 +112,7 @@ class CircleMaker {
 			cell.classList.add("hue");
 			cell.classList.add("selectable");
 	  } else {
-			path.setAttribute("fill", 'gray');
+		cell.classList.add("unselectable");
 	  }
 	  
 	  cell.appendChild(path);
@@ -141,24 +134,20 @@ class CircleMaker {
 	  let text = document.createElementNS(ns, 'text');
 	  text.setAttribute("x", x);
 	  text.setAttribute("y", y);
-		text.setAttribute("font-size", this.fontSize);
-		text.setAttribute("text-anchor","middle");
-		text.setAttribute("dominant-baseline", "middle");
 	  
 	  this.appendTspan(text, natText);
 	  if (accText) {
-			let acc = this.appendTspan(text, accText);
-			acc.setAttribute("baseline-shift","super");
-			acc.setAttribute("font-size", this.superFontSize);
+		this.appendTspan(text, accText, 'superscript');
 	  }
 	  
 	  cell.appendChild(text);
 	  return text;
 	}
 	
-	appendTspan(text, content) {
+	appendTspan(text, content, clazz) {
 	  let tspan = document.createElementNS(ns, 'tspan');
 	  tspan.textContent = content;
+	  tspan.classList.add(clazz);
 	  text.appendChild(tspan);
 	  return tspan;
 	}

@@ -7,48 +7,66 @@ body {
 body > div {
 	margin: 10px;
 }
+
 .note-circle {
 	border: 1px solid black;
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 5px;
 	padding: 5px;
-  stroke: black;
-  stroke-width: 0;
 }
+.note-circle svg {
+  width: 320px;
+  height: 320px;
+}
+.note-circle path {
+  stroke: black;
+  stroke-width: 0.5;
+}
+
 .note-circle text {
 	transform: translate(0, 2px);
 	pointer-events: none;
   fill: black;
   stroke-width: 0.3;
+  text-anchor: middle;
+  font-size: 1em;
+  dominant-baseline: middle;
+}
+.note-circle text .superscript {
+  font-size: 0.75em;
+  baseline-shift: super;
 }
 
 .cell.hue {
-  --main-bg-hue: calc(30*var(--hue-index));
-  --main-bg-color: hsl(var(--main-bg-hue) 90% 65%);
-  --dark-bg-color: hsl(var(--main-bg-hue) 70% 30%);
-  --light-bg-color: hsl(var(--main-bg-hue) 90% 60%);
+  --main-bg-hue: calc(15 + 30 * var(--hue-index));
+  --main-bg-color: hsl(var(--main-bg-hue) 95% 65%);
+  --dark-bg-color: hsl(var(--main-bg-hue) 95% 30%);
+  --disabled-bg-color: hsl(var(--main-bg-hue) 15% 45%);
 }
 .cell.hue path {
   fill: var(--main-bg-color);
+  stroke: var(--dark-bg-color);
 }
 
-.group-selected .cell.hue path {
-  fill: var(--dark-bg-color);
+.group-selected .cell.hue:not(.in-group-selected, .selectable:hover) path {
+  fill: var(--disabled-bg-color);
 }
-.group-selected .cell.in-group-selected path {
-  fill: var(--main-bg-color);
-  /*stroke: var(--dark-bg-color);
-  stroke-width: 2;
-  filter: drop-shadow(0 0 2px var(--dark-bg-color));*/
+.group-selected .cell.in-group-selected {
+  filter: drop-shadow(0 0 3px black);
 }
 .cell.selected path {
   stroke-width: 2;
   stroke: black;
 }
 
+.cell.unselectable {
+  cursor: not-allowed;
+  fill: gray;
+}
 .cell.selectable {
   cursor: pointer;
+
   transform-box: fill-box;
   transform: scale(1);
   transform-origin: 50% 50%;
@@ -59,7 +77,8 @@ body > div {
 }
 
 .cell.selectable:hover {
-  filter: drop-shadow(0 0 3px black);
+  filter: drop-shadow(0 0 6px black);
+
   transform: scale(1.2);
   transform-origin: 50% 50%;
   transition:.3s;
