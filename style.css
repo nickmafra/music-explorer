@@ -1,6 +1,8 @@
 body {
 	display: flex;
 	flex-wrap: wrap;
+  /*background-color: black;
+  color: white;*/
 }
 body > div {
 	margin: 10px;
@@ -12,20 +14,37 @@ body > div {
 	margin-bottom: 5px;
 	padding: 5px;
   stroke: black;
-  stroke-width: 0.2;
+  stroke-width: 0;
 }
 .note-circle text {
 	transform: translate(0, 2px);
 	pointer-events: none;
+  fill: black;
+  stroke-width: 0.3;
 }
 
-.cell.in-group-selected path {
+.cell.hue {
+  --main-bg-hue: calc(30*var(--hue-index));
+  --main-bg-color: hsl(var(--main-bg-hue) 90% 65%);
+  --dark-bg-color: hsl(var(--main-bg-hue) 70% 30%);
+  --light-bg-color: hsl(var(--main-bg-hue) 90% 60%);
+}
+.cell.hue path {
+  fill: var(--main-bg-color);
+}
+
+.group-selected .cell.hue path {
+  fill: var(--dark-bg-color);
+}
+.group-selected .cell.in-group-selected path {
+  fill: var(--main-bg-color);
+  /*stroke: var(--dark-bg-color);
   stroke-width: 2;
-  filter: drop-shadow(0 0 3px black);
+  filter: drop-shadow(0 0 2px var(--dark-bg-color));*/
 }
 .cell.selected path {
-  stroke-width: 3;
-  stroke: red;
+  stroke-width: 2;
+  stroke: black;
 }
 
 .cell.selectable {
@@ -48,4 +67,3 @@ body > div {
   -webkit-transform-origin: 50% 50%;
   -webkit-transition:.3s;
 }
-

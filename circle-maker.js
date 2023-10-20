@@ -115,8 +115,8 @@ class CircleMaker {
 	  path.setAttribute("d", pathd);
 	  
 	  if (Number.isInteger(note.hueIndex)) {
-			let hue = this.hueOffset + 360 * note.hueIndex * ratio;
-			path.setAttribute("fill", `hsl(${hue}, ${this.saturation}%, ${this.lightning}%)`);
+			cell.style.setProperty("--hue-index", note.hueIndex);
+			cell.classList.add("hue");
 			cell.classList.add("selectable");
 	  } else {
 			path.setAttribute("fill", 'gray');
@@ -171,6 +171,7 @@ class CircleMaker {
 	}
 	
 	selectNoteGroup(notes) {
+		this.element.classList.add('group-selected');
 		notes.forEach(note => {
 			let	cell = this.#findCell(note);
 			if (cell) {
