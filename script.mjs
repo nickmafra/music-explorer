@@ -1,3 +1,6 @@
+import { MeantoneTuningSystem } from './tuning-systems.mjs';
+import CircleMaker from './circle-maker.mjs';
+
 let noteGroups = {
 	"12notes": circleWithFifthIndex(listFifthInterval('G♭', 'B')),
 	"17notes": circleWithFifthIndex(listFifthInterval('G♭', 'A♯')),

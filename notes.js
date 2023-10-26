@@ -1,3 +1,21 @@
+function toPitch(frequency) {
+	return Math.round(12 * Math.log2(frequency));
+}
+
+function normalizedOctave(frequencyRatio) {
+	return Math.floor(Math.log2(frequencyRatio));
+}
+
+function positiveModule(value, module) {
+    let result = value % module;
+    if (result < 0) result += module;
+    return result;
+}
+
+function toLetter(index) {
+	return String.fromCharCode("A".charCodeAt(0) + index);
+}
+
 const naturals = [
    {index: 0, text: 'F'},
    {index: 1, text: 'C'},

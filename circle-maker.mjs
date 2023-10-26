@@ -3,7 +3,7 @@ const twoPI = 2 * Math.PI;
 const equalTemperament = 7/12;
 const wellTemperament = Math.log2(1.5);
 
-class CircleMaker {
+export default class CircleMaker {
 
 	r0 = 100; // radius of F
 	cx = 150; // x of center
