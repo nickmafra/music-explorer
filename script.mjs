@@ -22,6 +22,9 @@ function start() {
 	scaleCircle = new CircleMaker(onSelectMode);
 	document.querySelector("#scaleCircle").appendChild(scaleCircle.element);
 	
+	document.querySelector("#noteGroup").onchange = onSelectNoteGroup;
+	document.querySelector("#scale").onchange = onSelectScale;
+	
 	onSelectNoteGroup();
 	onSelectScale();
 }
