@@ -1,0 +1,79 @@
+<html>
+    <title>Synthetizer</title>
+    <body>
+        <fieldset>
+            <input type="range" id="h1" name="h1" value="100" /><label for="h1">Harmonic 1</label>
+            <br />
+            <input type="range" id="h2" name="h2" value="50" /><label for="h2">Harmonic 2</label>
+            <br />
+            <input type="range" id="h3" name="h3" value="33" /><label for="h3">Harmonic 3</label>
+            <br />
+            <input type="range" id="h4" name="h4" value="25" /><label for="h3">Harmonic 4</label>
+            <br />
+            <input type="range" id="h5" name="h5" value="20" /><label for="h3">Harmonic 5</label>
+        </fieldset>
+        <br />
+        <fieldset>
+            <input type="range" id="aa" name="aa" value="100" /><label for="aa">Attack Amplitude</label>
+            <br />
+            <input type="range" id="ad" name="ad" value="1" /><label for="ad">Attack Duration</label>
+            <br />
+            <input type="range" id="da" name="da" value="40" /><label for="d">Decay Amplitude</label>
+            <br />
+            <input type="range" id="dd" name="dd" value="2" /><label for="d">Decay Duration</label>
+            <br />
+            <input type="range" id="sd" name="sd" value="50" /><label for="d">Sustain Duration</label>
+            <br />
+            <input type="range" id="rd" name="rd" value="10" /><label for="r">Release Duration</label>
+        </fieldset>
+        <br />
+        <fieldset>
+            <input id="play" type="button" value="Start" />
+            <input id="stop" type="button" value="Stop" />
+            <br />
+            <input id="short" type="button" value="Play Short" />
+        </fieldset>
+
+        <script type="module">
+            import Synth from './synth.mjs';
+
+            const freq = 440;
+            let audioPlayer = null;
+
+            function start() {
+                if (audioPlayer) {
+                    audioPlayer.stop();
+                } else {
+                    Synth.start();
+                }
+                let harmonics = [
+                    document.getElementById("h1").value/100,
+                    document.getElementById("h2").value/100,
+                    document.getElementById("h3").value/100,
+                    document.getElementById("h4").value/100,
+                    document.getElementById("h5").value/100,
+                ];
+                let adsr = {
+                    attackAmplitude: document.getElementById("aa").value/100,
+                    attackDuration: document.getElementById("ad").value/100,
+                    decayAmplitude: document.getElementById("da").value/100,
+                    decayDuration: document.getElementById("dd").value/100,
+                    sustainDuration: document.getElementById("sd").value/20,
+                    releaseDuration: document.getElementById("rd").value/20,
+                };
+                audioPlayer = Synth.createAudioPlayer(freq, harmonics, adsr);
+                audioPlayer.start();
+            };
+            function stop() {
+                if (audioPlayer)
+                    audioPlayer.stop();
+            };
+            document.getElementById("play").onclick = start;
+            document.getElementById("stop").onclick = stop;
+            document.getElementById("short").onclick = () => {
+                start();
+                setTimeout(() => stop(), 200);
+            };
+        </script>
+    </body>
+</html>
