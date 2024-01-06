@@ -28,6 +28,8 @@
         </fieldset>
         <br />
         <fieldset>
+            <input id="config" type="button" value="Set Config" />
+            <br />
             <input id="play" type="button" value="Start" />
             <input id="stop" type="button" value="Stop" />
             <br />
@@ -35,44 +37,37 @@
         </fieldset>
 
         <script type="module">
-            import Synth from './synth.mjs';
+            import Timbre from './Timbre.mjs';
+            import AudioPlayer from './AudioPlayer.mjs';
 
-            const freq = 440;
+            const frequency = 440;
             let audioPlayer = null;
 
-            function start() {
+            document.getElementById("config").onclick = () => {
                 if (audioPlayer) {
                     audioPlayer.stop();
-                } else {
-                    Synth.start();
                 }
-                let harmonics = [
+                const timbre = new Timbre();
+                timbre.setWithHarmonics([
                     document.getElementById("h1").value/100,
                     document.getElementById("h2").value/100,
                     document.getElementById("h3").value/100,
                     document.getElementById("h4").value/100,
                     document.getElementById("h5").value/100,
-                ];
-                let adsr = {
-                    attackAmplitude: document.getElementById("aa").value/100,
-                    attackDuration: document.getElementById("ad").value/100,
-                    decayAmplitude: document.getElementById("da").value/100,
-                    decayDuration: document.getElementById("dd").value/100,
-                    sustainDuration: document.getElementById("sd").value/20,
-                    releaseDuration: document.getElementById("rd").value/20,
-                };
-                audioPlayer = Synth.createAudioPlayer(freq, harmonics, adsr);
-                audioPlayer.start();
+                ]);
+                timbre.adsr.attackAmplitude = document.getElementById("aa").value/100;
+                timbre.adsr.attackDuration = document.getElementById("ad").value/100;
+                timbre.adsr.decayAmplitude = document.getElementById("da").value/100;
+                timbre.adsr.decayDuration = document.getElementById("dd").value/100;
+                timbre.adsr.sustainDuration = document.getElementById("sd").value/20;
+                timbre.adsr.releaseDuration = document.getElementById("rd").value/20;
+                audioPlayer = new AudioPlayer(timbre, frequency);
             };
-            function stop() {
-                if (audioPlayer)
-                    audioPlayer.stop();
-            };
-            document.getElementById("play").onclick = start;
-            document.getElementById("stop").onclick = stop;
+            document.getElementById("play").onclick = () => audioPlayer.start();
+            document.getElementById("stop").onclick = () => audioPlayer.stop();
             document.getElementById("short").onclick = () => {
-                start();
-                setTimeout(() => stop(), 200);
+                audioPlayer.start();
+                setTimeout(() => audioPlayer.stop(), 200);
             };
         </script>
     </body>
