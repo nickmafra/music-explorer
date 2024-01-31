@@ -7,8 +7,9 @@ export default {
     textToChroma(text) {
         const letter = text.substring(0, 1);
         let chroma = notes.indexOf(letter);
-        if (text.includes('#')) chroma++;
-        if (text.includes('b')) chroma--;
+        text = text.substring(1);
+        if (text.startsWith('#')) chroma++;
+        if (text.startsWith('b')) chroma--;
         return (chroma + 12) % 12;
     },
     pitchToText(midiNumber) {
