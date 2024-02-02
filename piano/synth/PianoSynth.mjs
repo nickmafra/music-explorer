@@ -24,7 +24,7 @@ export default class PianoSynth {
             ],
             adsr: {
                 attackAmplitude: 1,
-                attackDuration: 0.1,
+                attackDuration: 0.05,
                 decayAmplitude: 0.5,
                 decayDuration: 0.2,
                 sustainDuration: 3,

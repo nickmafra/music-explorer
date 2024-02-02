@@ -1,37 +1,43 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <link rel="stylesheet" href="./svg/style.css">
         <title>Piano Web</title>
     </head>
     <body>
         <div id="container"></div>
+        <button id="startButton" style="width:100%">Start</button>
+
         <script type="module">
             import PianoSvg from './svg/PianoSvg.mjs';
             import PianoSynth from './synth/PianoSynth.mjs';
 
+            const startButton = document.getElementById("startButton");
             const options = { firstPitch: 47, lastPitch: 72 };
 
-            const svg = new PianoSvg(options);
-            document.getElementById('container').appendChild(svg.element);
+            let svg;
+            let synth;
 
-            let synth = null;
-            function getSynth() {
-                // Browsers require on-screen interaction before producing sound.
-                if (!synth) synth = new PianoSynth(options);
-                return synth;
+            function start() {
+                synth = new PianoSynth(options);
+                svg = new PianoSvg(options);
+
+                svg.onKeyPress = key => {
+                    key.addHighlight();
+                    synth.press(key.data.pitch);
+                };
+
+                svg.onKeyRelease = key => {
+                    key.clearHighlight();
+                    synth.release(key.data.pitch);
+                };
+
+                document.body.removeChild(startButton);
+                document.getElementById('container').appendChild(svg.element);
             }
-
-            svg.onKeyPress = key => {
-                key.addHighlight();
-                getSynth().press(key.data.pitch);
-            };
-
-            svg.onKeyRelease = key => {
-                key.clearHighlight();
-                getSynth().release(key.data.pitch);
-            };
+            
+            startButton.onclick = () => start();
         </script>
     </body>
 </html>
