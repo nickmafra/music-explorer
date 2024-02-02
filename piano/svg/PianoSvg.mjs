@@ -27,6 +27,8 @@ const strokeWidth = 1;
 
 class PianoKeySvg {
 
+    pressed = false;
+
     constructor(data, piano) {
         this.data = data;
         this.piano = piano;
@@ -41,17 +43,22 @@ class PianoKeySvg {
         this.element.addEventListener('mousedown', () => this.onClickStart());
         this.element.addEventListener('mouseup', () => this.onClickEnd());
         this.element.addEventListener('mouseout', () => this.onClickEnd());
+        this.element.addEventListener('touchstart', () => this.onClickStart());
+        this.element.addEventListener('touchend', () => this.onClickEnd());
+        this.element.addEventListener('touchcancel', () => this.onClickEnd());
         this.element.classList.add(this.data.typeClass);
     }
 
     onClickStart() {
-        if (this.piano.onKeyPress)
+        if (!this.pressed && this.piano.onKeyPress)
             this.piano.onKeyPress(this);
+        this.pressed = true;
     }
 
     onClickEnd() {
-        if (this.piano.onKeyRelease)
+        if (this.pressed && this.piano.onKeyRelease)
             this.piano.onKeyRelease(this);
+        this.pressed = false;
     }
 
     addHighlight() {
