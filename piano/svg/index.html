@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <link rel="stylesheet" href="./style.css">
+    </head>
     <body>
         <div id="container"></div>
         <script type="module">
-            import { PianoSvg } from './piano-svg.mjs';
+            import PianoSvg from './PianoSvg.mjs';
 
             const piano = new PianoSvg({firstPitch: 47, lastPitch: 72});
             document.getElementById('container').appendChild(piano.element);
@@ -11,16 +14,5 @@
             piano.onKeyPress = key => key.addHighlight();
             piano.onKeyRelease = key => key.clearHighlight();
         </script>
-        <style>
-            .key-white {
-                fill: hsl(60, 30%, 70%)
-            }
-            .key-black {
-                fill: hsl(40, 30%, 30%)
-            }
-            .key-highlighted {
-                filter: saturate(500%)
-            }
-        </style>
     </body>
 </html>

@@ -1,0 +1,9 @@
+.key-white {
+    fill: hsl(60, 30%, 70%)
+}
+.key-black {
+    fill: hsl(40, 30%, 30%)
+}
+.key-highlighted {
+    filter: saturate(500%)
+}

@@ -133,7 +133,4 @@ class PianoSvg {
     }
 };
 
-export {
-    PianoSvg,
-    PianoKeySvg,
-};
+export default PianoSvg;

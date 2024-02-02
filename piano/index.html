@@ -1,23 +1,35 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Sounzapp, the real-music game!</title>
+    <head>
+        <link rel="stylesheet" href="./svg/style.css">
+    </head>
+    <body>
+        <div id="container"></div>
+        <script type="module">
+            import PianoSvg from './svg/PianoSvg.mjs';
+            import PianoSynth from './synth/PianoSynth.mjs';
 
-    <style>
-        html, body, canvas {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-        }
-    </style>
+            const options = { firstPitch: 47, lastPitch: 72 };
 
-  </head>
-  <body onload="main.start()">
-    <script src="engine.js"></script>
-    <script src="core.js"></script>
-    <script src="piano.js"></script>
-    <script src="main.js"></script>
-  </body>
+            const svg = new PianoSvg(options);
+            document.getElementById('container').appendChild(svg.element);
+
+            let synth = null;
+            function getSynth() {
+                // Browsers require on-screen interaction before producing sound.
+                if (!synth) synth = new PianoSynth(options);
+                return synth;
+            }
+
+            svg.onKeyPress = key => {
+                key.addHighlight();
+                getSynth().press(key.data.pitch);
+            };
+
+            svg.onKeyRelease = key => {
+                key.clearHighlight();
+                getSynth().release(key.data.pitch);
+            };
+        </script>
+    </body>
 </html>
